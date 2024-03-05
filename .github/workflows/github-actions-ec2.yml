@@ -9,13 +9,13 @@ on:
 jobs:
   deploy:
     name: Deploy to EC2 on master branch push
-    runs-on: centos-latest
+    runs-on: ubuntu-latest
 
     steps:
       - name: Checkout the files
         uses: actions/checkout@v2
 
-      - name: Deploy to Server1
+      - name: Deploy to Server2
         uses: easingthemes/ssh-deploy@main
         env:
           SSH_PRIVATE_KEY: ${{ secrets.EC2_SSH_KEY }}
@@ -30,8 +30,8 @@ jobs:
           username: ${{ secrets.USERNAME }}
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            sudo yum update -y 
-            sudo yum install nginx -y
+            sudo apt update -y 
+            sudo apt install nginx -y
             sudo systemctl start nginx
             sudo systemctl enable nginx
             cd home
